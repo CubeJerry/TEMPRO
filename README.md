@@ -16,3 +16,10 @@ To reproduce and/or predict your own nanobody melting temperature using its prot
 
 
 Upon use, please cite our paper:
+
+
+Notes for reproducing paper results (inside paper_results.zip file):
+1) "sdab_data.xlsx" is the processed dataset containing all 567 single-domain antibodies used for the analyses.
+2) "raw_nbthermo_json_data.csv" contains the raw sdab data from NbThermo database.
+3) "raw_nrl_data.xlsx" contains the raw sdab data manually curated by the authors.
+
