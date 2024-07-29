@@ -6,7 +6,12 @@ Protein language models in current literature are of growing interest in context
 
 
 To reproduce and/or predict your own nanobody melting temperature using its protein sequence:
-1) Please install the required packages using the requirements.txt file.
+1) Please install the required packages using the requirements.txt file such as:
+   
+   conda install -r requirements.txt
+   or
+   pip install -r requirements.txt.
+   
 2) Navigate to the user folder, open "TEMPRO.ipynb" Jupyter Notebook, and run the codes.
 
 
