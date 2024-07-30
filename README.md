@@ -1,8 +1,7 @@
 # TEMPRO
 Nanobody Melting Temperature Prediction using Protein Embeddings
 
-
-Protein language models in current literature are of growing interest in contexts of protein stability changes, protein sequencing/scaffold filling, and other biophysical property predictions. Recently, protein sequence's numerical representations or embeddings have been used for protein engineering, such as predicted solubility, thermophilicity, and other property prediction or classification tasks. We present a method estimating a nanobody’s melting temperature using their protein structure embeddings as predictive features of thermostability.
+We present a method for estimating a nanobody’s melting temperature with their protein structure embeddings as predictive features of thermostability using an input fasta file.
 
 
 **Files:**
