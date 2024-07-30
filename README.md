@@ -6,7 +6,7 @@ We present a method for estimating a nanobody’s melting temperature with their
 
 **Files:**
 
-1) embedding_generator.zip - contains the code for generating embeddings using ESM and fasta file of all 567 nanobodies used in the study (we cannot upload our own embeddings here as the output csv files are too large).
+1) embedding_generator.zip - contains the code for generating embeddings using ESM and fasta file of all 567 nanobodies used in the study (we will insert the Zenodo link here for larger files upon publication).
    
 2) paper_results.zip - contains the codes and necessary datasets to reproduce our results from the paper.
    
