@@ -5,14 +5,24 @@ Nanobody Melting Temperature Prediction using Protein Embeddings
 Protein language models in current literature are of growing interest in contexts of protein stability changes, protein sequencing/scaffold filling, and other biophysical property predictions. Recently, protein sequence's numerical representations or embeddings have been used for protein engineering, such as predicted solubility, thermophilicity, and other property prediction or classification tasks. We present a method estimating a nanobody’s melting temperature using their protein structure embeddings as predictive features of thermostability.
 
 
-To reproduce and/or predict your own nanobody melting temperature using its protein sequence:
+**Files**
+1) embedding_generator.zip - contains the code for generating embeddings using ESM and fasta file of all 567 nanobodies used in the study (we cannot upload our own embeddings here as the output csv files are too large).
+2) paper_results.zip - contains the codes and necessary datasets to reproduce our results from the paper.
+3) user.zip - contains our pre-trained models for predicting your own nanobody thermostability.
+
+
+**Instructions**
+To predict your own nanobody melting temperature using its protein sequence:
+
 1) Please install the required packages using the requirements.txt file such as:
    
    'conda install -r requirements.txt'
+   
    or
+   
    'pip install -r requirements.txt.'
    
-2) Navigate to the user folder, open "TEMPRO.ipynb" Jupyter Notebook, and run the codes.
+3) Navigate to the user folder, open "TEMPRO.ipynb" Jupyter Notebook, and run the codes.
 
 
 Upon use, please cite our paper:
