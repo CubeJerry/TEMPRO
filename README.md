@@ -30,6 +30,7 @@ To predict your own nanobody melting temperature using its protein sequence:
 
 
 Upon use, please cite our paper:
+Alvarez, J.A.E., Dean, S.N. TEMPRO: nanobody melting temperature estimation model using protein embeddings. Sci Rep 14, 19074 (2024). https://doi.org/10.1038/s41598-024-70101-6
 
 
 Notes for reproducing paper results (inside paper_results.zip file):
