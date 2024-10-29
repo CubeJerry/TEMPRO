@@ -32,8 +32,7 @@ To predict your own nanobody melting temperature using its protein sequence:
 Upon use, please cite our paper:
 Alvarez, J.A.E., Dean, S.N. TEMPRO: nanobody melting temperature estimation model using protein embeddings. Sci Rep 14, 19074 (2024). https://doi.org/10.1038/s41598-024-70101-6
 
-Note for Python version:
-It is important to install the correct Python version (in the requirements.txt file; version 3.9) to properly load the Keras models for nanobody predictions.
+Note for Keras models: it is important to install the correct Python version (in the requirements.txt file; version 3.9) to properly load the Keras models for predicting nanobody thermostability.
 
 Notes for reproducing paper results (inside paper_results.zip file):
 1) "sdab_data.xlsx" is the processed dataset containing all 567 single-domain antibodies used for the analyses.
