@@ -12,6 +12,8 @@ We present a method for estimating a nanobody’s melting temperature with their
    
 3) user.zip - contains our pre-trained models for predicting your own nanobody thermostability.
 
+4) tm_predictors.rar - contains the supplemental files for the TEMPRO.ipynb notebook if you want to run the last cell/s. You can also generate your own embeddings using the embedding_generator.zip folder. (Note: I could not upload the 15B embeddings due to the file size. I was able to upload 650M and 3B only.)
+
 
 
 **Instructions:**
