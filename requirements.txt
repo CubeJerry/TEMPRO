@@ -1,4 +1,3 @@
-python==3.9.15
 tensorflow==2.10.1
 keras==2.10.0
 fair-esm
@@ -9,3 +8,4 @@ seaborn==0.12.2
 pandas==2.2.2
 fair-esm==2.0.0
 openpyxl==3.1.2
+
