@@ -1,3 +1,5 @@
+import sys
+import os
 import torch
 import esm
 import keras
@@ -8,7 +10,7 @@ import pandas as pd
 print("Loading ESM-2 3B model...")
 model, alphabet = esm.pretrained.esm2_t36_3B_UR50D()
 batch_converter = alphabet.get_batch_converter()
-model.eval() 
+model.eval()  # FP32
 
 def read_fasta(fp):
     name, seq = None, []
@@ -23,8 +25,8 @@ def read_fasta(fp):
     if name:
         yield (name, ''.join(seq))
 
-fasta_filename = sys.argv[1]  # first argument
-output_csv = sys.argv[2]      # second argument
+fasta_filename = sys.argv[1]
+output_csv = sys.argv[2]
 
 data = []
 with open(fasta_filename) as fp:
@@ -32,7 +34,7 @@ with open(fasta_filename) as fp:
         data.append((name, seq))
 
 sequence_representations_list = []
-chunk_size = 16  # adjust based on GPU memory
+chunk_size = 16
 for i in range(0, len(data), chunk_size):
     chunk = data[i:i+chunk_size]
     print(f"Processing sequences {i+1}-{i+len(chunk)} of {len(data)}")
@@ -40,23 +42,20 @@ for i in range(0, len(data), chunk_size):
     batch_labels, batch_strs, batch_tokens = batch_converter(chunk)
     batch_lens = (batch_tokens != alphabet.padding_idx).sum(1)
 
-    with torch.no_grad():  # FP32 by default
-        results = model(batch_tokens, repr_layers=[36], return_contacts=False)  # 3B model
+    with torch.no_grad():
+        results = model(batch_tokens, repr_layers=[36], return_contacts=False)
         token_representations = results["representations"][36]
 
-    # Average over residues (skip BOS/EOS tokens)
     sequence_representations = []
     for j, tokens_len in enumerate(batch_lens):
         sequence_representations.append(token_representations[j, 1:tokens_len-1].mean(0))
 
     sequence_representations_list.extend(sequence_representations)
 
-
 X = torch.stack(sequence_representations_list, dim=0).cpu().detach().numpy()
 
-
-print("Loading pretrained Keras model for Tm prediction...")
 keras_model_path = f"/vast/scratch/users/{os.environ['USER']}/TEMPRO/user/saved_ANNmodels_1500epoch/ESM_3B.keras"
+print("Loading pretrained Keras model for Tm prediction...")
 keras_model = keras.models.load_model(keras_model_path)
 
 print("Predicting Tm...")
