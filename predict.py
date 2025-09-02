@@ -7,8 +7,10 @@ import numpy as np
 import pandas as pd
 
 # does this even work?
-print("Loading ESM-2 3B model...")
-model, alphabet = esm.pretrained.esm2_t36_3B_UR50D()
+print("Loading ESM-2 model...")
+model, alphabet = esm.pretrained.esm2_t48_15B_UR50D()
+# model, alphabet = esm.pretrained.esm2_t36_3B_UR50D()
+# model, alphabet = esm.pretrained.esm2_t36_650M_UR50D()
 batch_converter = alphabet.get_batch_converter()
 model.eval()  # FP32
 
@@ -54,7 +56,9 @@ for i in range(0, len(data), chunk_size):
 
 X = torch.stack(sequence_representations_list, dim=0).cpu().detach().numpy()
 
-keras_model_path = f"/vast/scratch/users/{os.environ['USER']}/TEMPRO/user/saved_ANNmodels_1500epoch/ESM_3B.keras"
+keras_model_path = f"/vast/scratch/users/{os.environ['USER']}/TEMPRO/user/saved_ANNmodels_1500epoch/ESM_15B.keras"
+# keras_model_path = f"/vast/scratch/users/{os.environ['USER']}/TEMPRO/user/saved_ANNmodels_1500epoch/ESM_3B.keras"
+# keras_model_path = f"/vast/scratch/users/{os.environ['USER']}/TEMPRO/user/saved_ANNmodels_1500epoch/ESM_650M.keras"
 print("Loading pretrained Keras model for Tm prediction...")
 keras_model = keras.models.load_model(keras_model_path)
 
