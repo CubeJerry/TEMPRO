@@ -3,7 +3,8 @@ Nanobody Melting Temperature Prediction using Protein Embeddings
 
 **Now with a standalone script ```predict.py```** - takes 2 arguments ```fasta_path``` and ```output_dir```
 
-By default, the script runs the 15B parameter ESM2 model, quantized to efficiently run on WEHI's 40 GB A100 GPU.
+By default, the script runs the 15B parameter ESM2 model, quantized to run on WEHI's 40 GB A100 GPU.
+
 
 We present a method for estimating a nanobody’s melting temperature with their protein structure embeddings as predictive features of thermostability using an input fasta file.
 
