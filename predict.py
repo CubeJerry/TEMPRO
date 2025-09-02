@@ -68,8 +68,14 @@ for start in range(0, len(data), chunk_size):
             vec = token_representations[seq_idx, 1:L-1].mean(0).cpu()
         sequence_representations_list.append(vec)
 
+    print(f"Allocated: {torch.cuda.memory_allocated()/1024**3:.2f} GB | "
+      f"Reserved: {torch.cuda.memory_reserved()/1024**3:.2f} GB | "
+      f"Max allocated: {torch.cuda.max_memory_allocated()/1024**3:.2f} GB | "
+      f"Max reserved: {torch.cuda.max_memory_reserved()/1024**3:.2f} GB",
+      flush=True)
+
 # Stack embeddings into a single numpy array on CPU
-X = torch.stack(sequence_representations_list, dim=0).cpu().numpy()
+X = torch.stack(sequence_representations_list, dim=0).cpu().numpy().astype(np.float32)
 
 
 keras_model_path = f"/vast/scratch/users/{os.environ['USER']}/TEMPRO/user/saved_ANNmodels_1500epoch/ESM_15B.keras"
