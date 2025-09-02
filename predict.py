@@ -38,7 +38,7 @@ with open(fasta_filename) as fp:
 # Ensure model is on the right device and pick the final representation layer
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
-repr_layer = model.num_layers
+repr_layer = model.num_layers - 1
 
 sequence_representations_list = []
 chunk_size = 16  # keep or adjust
