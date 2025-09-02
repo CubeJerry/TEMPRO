@@ -37,7 +37,8 @@ with open(fasta_filename) as fp:
 
 # Ensure model is on the right device and pick the final representation layer
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model.to(device)
+model = model.half().to(device)
+# model.to(device)
 repr_layer = model.num_layers - 1
 
 sequence_representations_list = []
@@ -73,7 +74,6 @@ for start in range(0, len(data), chunk_size):
       f"Max allocated: {torch.cuda.max_memory_allocated()/1024**3:.2f} GB | "
       f"Max reserved: {torch.cuda.max_memory_reserved()/1024**3:.2f} GB",
       flush=True)
-
 # Stack embeddings into a single numpy array on CPU
 X = torch.stack(sequence_representations_list, dim=0).cpu().numpy().astype(np.float32)
 
