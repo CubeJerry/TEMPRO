@@ -35,26 +35,42 @@ with open(fasta_filename) as fp:
     for name, seq in read_fasta(fp):
         data.append((name, seq))
 
+# Ensure model is on the right device and pick the final representation layer
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
+repr_layer = model.num_layers
+
 sequence_representations_list = []
-chunk_size = 16
-for i in range(0, len(data), chunk_size):
-    chunk = data[i:i+chunk_size]
-    print(f"Processing sequences {i+1}-{i+len(chunk)} of {len(data)}")
-    
+chunk_size = 16  # keep or adjust
+
+for start in range(0, len(data), chunk_size):
+    chunk = data[start:start+chunk_size]
+    print(f"Processing sequences {start+1}-{start+len(chunk)} of {len(data)}")
+
     batch_labels, batch_strs, batch_tokens = batch_converter(chunk)
     batch_lens = (batch_tokens != alphabet.padding_idx).sum(1)
 
+    # move tokens to device for model forward
+    batch_tokens = batch_tokens.to(device)
+
     with torch.no_grad():
-        results = model(batch_tokens, repr_layers=[36], return_contacts=False)
-        token_representations = results["representations"][36]
+        results = model(batch_tokens, repr_layers=[repr_layer], return_contacts=False)
+        token_representations = results["representations"][repr_layer]  # shape: [B, L, C]
 
-    sequence_representations = []
-    for j, tokens_len in enumerate(batch_lens):
-        sequence_representations.append(token_representations[j, 1:tokens_len-1].mean(0))
+    # For each sequence in the batch, average residue embeddings (skip BOS/EOS)
+    for seq_idx, L in enumerate(batch_lens):
+        L = int(L.item())
+        if L <= 2:
+            # empty or too short sequence -> zero vector on CPU
+            vec = torch.zeros(token_representations.size(-1), dtype=token_representations.dtype)
+        else:
+            # mean over residues (tokens 1 .. L-2), move to CPU
+            vec = token_representations[seq_idx, 1:L-1].mean(0).cpu()
+        sequence_representations_list.append(vec)
 
-    sequence_representations_list.extend(sequence_representations)
+# Stack embeddings into a single numpy array on CPU
+X = torch.stack(sequence_representations_list, dim=0).cpu().numpy()
 
-X = torch.stack(sequence_representations_list, dim=0).cpu().detach().numpy()
 
 keras_model_path = f"/vast/scratch/users/{os.environ['USER']}/TEMPRO/user/saved_ANNmodels_1500epoch/ESM_15B.keras"
 # keras_model_path = f"/vast/scratch/users/{os.environ['USER']}/TEMPRO/user/saved_ANNmodels_1500epoch/ESM_3B.keras"
@@ -67,7 +83,7 @@ predictions = keras_model.predict(X)
 
 results_df = pd.DataFrame({
     "Sequence_ID": [name for name, _ in data],
-    "Predicted_Tm": predictions.flatten()
+    "TEMPRO_Tm": predictions.flatten()
 })
 
 results_df.to_csv(output_csv, index=False)
