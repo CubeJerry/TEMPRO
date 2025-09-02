@@ -1,7 +1,9 @@
 # TEMPRO
 Nanobody Melting Temperature Prediction using Protein Embeddings
 
-**Now with a standalone script predict.py**
+**Now with a standalone script ```predict.py```**
+
+By default, the script runs the 15B parameter ESM2 model, quantized to efficiently run on WEHI's 40 GB A100 GPU.
 
 We present a method for estimating a nanobody’s melting temperature with their protein structure embeddings as predictive features of thermostability using an input fasta file.
 
@@ -20,7 +22,7 @@ We present a method for estimating a nanobody’s melting temperature with their
 
 **Instructions:**
 
-Installation script bundled with Nanobody Pipeline.
+Installation script bundled with Nanobody Pipeline. 
 
 
 
