@@ -1,6 +1,8 @@
 # TEMPRO
 Nanobody Melting Temperature Prediction using Protein Embeddings
 
+**Now with a standalone script predict.py**
+
 We present a method for estimating a nanobody’s melting temperature with their protein structure embeddings as predictive features of thermostability using an input fasta file.
 
 
