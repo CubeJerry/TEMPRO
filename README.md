@@ -18,17 +18,8 @@ We present a method for estimating a nanobody’s melting temperature with their
 
 **Instructions:**
 
-To predict your own nanobody melting temperature using its protein sequence:
+Installation script bundled with Nanobody Pipeline.
 
-1) Please install the required packages using the requirements.txt file such as:
-   
-   'conda install -r requirements.txt'
-   
-   or
-   
-   'pip install -r requirements.txt.'
-   
-3) Navigate to the user folder, open "TEMPRO.ipynb" Jupyter Notebook, and run the codes.
 
 
 Upon use, please cite our paper:
