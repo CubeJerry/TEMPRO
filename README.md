@@ -21,10 +21,6 @@ We present a method for estimating a nanobody’s melting temperature with their
 
 
 
-**Instructions:**
-
-Installation script bundled with Nanobody Pipeline. 
-
 
 
 Upon use, please cite our paper:
